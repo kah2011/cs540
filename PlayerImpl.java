@@ -20,6 +20,7 @@ public class PlayerImpl extends Player {
 			Position[] positions = getLegalMoves(board, color);
 			for (int j = 0; j < positions.length; j++) {
 				GameState gs = makeMove(board, positions[j], color);
+                visited(gs.getBoard());
 				if (color.equals(color.WHITE)) {
 					System.out.println("Enter white");
 					MaxValue(gs, highestAlpha, lowestBeta, depth);
@@ -57,6 +58,7 @@ public class PlayerImpl extends Player {
 			Position bestPosition = null;
 			for (int i = 0; i < positions.length; i++) {
 				GameState gamestate = makeMove(gs.getBoard(), positions[i], c);
+                visited(gs.getBoard());
 				if (gs.getMove() != gamestate.getMove()) {
 					alpha = Math.max(alpha,
 							MinValue(gamestate, alpha, beta, depth--));
@@ -86,13 +88,14 @@ public class PlayerImpl extends Player {
 			Position[] positions = getLegalMoves(gs.getBoard(), c);
 			Position bestPosition = null;
 			for (int i = 0; i < positions.length; i++) {
-				GameState gamestate = makeMove(gs.getBoard(), positions[i], c);
+				GameState gamestate = makeMove(gs.getBoard(), positions[i], c);               
+                visited(gs.getBoard());
 
 				if (gs.getMove() != gamestate.getMove()) {
-					alpha = Math.min(alpha,
+					beta = Math.min(alpha,
 							MaxValue(gamestate, alpha, beta, depth--));
 				} else {
-					alpha = Math.min(alpha,
+					beta = Math.min(alpha,
 							MinValue(gamestate, alpha, beta, depth));
 				}
 			}
