@@ -1,6 +1,6 @@
 run: 
 	javac *.java
-	java Play 5 WHITE
+	java Play 1 WHITE
 
 clean:
 	rm -r *.class
