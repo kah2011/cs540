@@ -14,7 +14,10 @@ public class PlayerImpl extends Player {
 		// Delete everything in this method and include your implementation
 		// here.
 		double highestAlpha = Double.NEGATIVE_INFINITY;
+		double highestAlphaCompare = Double.NEGATIVE_INFINITY;
 		double lowestBeta = Double.POSITIVE_INFINITY;
+		double lowestBetaCompare = Double.POSITIVE_INFINITY;
+		
 		for (int i = 0;; i++) {
 			int depth = i;
             System.out.println("depth: " + i);
@@ -23,30 +26,34 @@ public class PlayerImpl extends Player {
 			for (int j = 0; j < positions.length; j++) {
 				GameState gs = makeMove(board, positions[j], color);
                 visited(gs.getBoard());
-				if (color.opposite().equals(color.WHITE)) {
+                
+				if (color.equals(Color.WHITE)) {
 					//System.out.println("Enter white");
 					
                     System.out.println("highest alpha: " + highestAlpha);
-					if (highestAlpha < getScore(gs.getBoard())) {
-                        highestAlpha = MaxValue(gs, highestAlpha, lowestBeta, depth);
+					if (highestAlpha < getScore(board)) {
+                        highestAlphaCompare = MaxValue(gs, highestAlpha, lowestBeta, depth);
+                        if(highestAlphaCompare > highestAlpha) {
+                        	highestAlpha = highestAlphaCompare;
+    						bestSoFar = positions[j];
+                        }
 						//System.out.println("Enter score updated white;");
-						highestAlpha = getScore(gs.getBoard());
-						bestSoFar = positions[j];
 					}
-				} else if (color.opposite().equals(color.BLACK)) {
+				} else if (color.equals(Color.BLACK)) {
 					//System.out.println("Enter black");
-					
                     System.out.println("lowestbeta: " + lowestBeta);
 					//System.out.println("lowest beta is " + lowestBeta);
-					if (lowestBeta > getScore(gs.getBoard())) {
-                        lowestBeta = MinValue(gs, highestAlpha, lowestBeta, depth);  
+					if (lowestBeta > getScore(board)) {
+						lowestBetaCompare = MinValue(gs, highestAlpha, lowestBeta, depth);  
+                        if(lowestBetaCompare < lowestBeta) {
+                        	lowestBeta = lowestBetaCompare;
+    						bestSoFar = positions[j];
+                        }
 						//System.out.println("Enter score updated black;");
-						lowestBeta = getScore(gs.getBoard());
-						bestSoFar = positions[j];
 					}
 				}
 			}
-		}
+		} 
 	}
 
 	public double MaxValue(GameState gs, double alpha, double beta, int depth) {
@@ -55,13 +62,12 @@ public class PlayerImpl extends Player {
 		} else {
 			Color c = null;
 			if (gs.getMove() == Move.BLACK) {
-				c = c.BLACK;
+				c = Color.BLACK;
 			} else {
-				c = c.WHITE;
+				c = Color.WHITE;
 			}
 
 			Position[] positions = getLegalMoves(gs.getBoard(), c);
-			Position bestPosition = null;
 			for (int i = 0; i < positions.length; i++) {
 				GameState gamestate = makeMove(gs.getBoard(), positions[i], c);
                 visited(gs.getBoard());
@@ -87,13 +93,12 @@ public class PlayerImpl extends Player {
 		} else {
 			Color c = null;
 			if (gs.getMove() == Move.BLACK) {
-				c = c.BLACK;
+				c = Color.BLACK;
 			} else {
-				c = c.WHITE;
+				c = Color.WHITE;
 			}
 
 			Position[] positions = getLegalMoves(gs.getBoard(), c);
-			Position bestPosition = null;
 			for (int i = 0; i < positions.length; i++) {
 				GameState gamestate = makeMove(gs.getBoard(), positions[i], c);               
                 visited(gs.getBoard());
