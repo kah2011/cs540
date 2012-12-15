@@ -129,10 +129,6 @@ public class Reversi extends JFrame implements MouseListener {
 				for(JSquare s : squares)
 					  s.repaint();
 				if (model.isGameOver()) {
-                    //List<Color[][]> printlist = Player.visitLog;
-                    //for(Color[][] color : printlist) {
-                    //    color.get
-                    //}
 					int w = model.getWhiteCount();
 					int b = model.getBlackCount();
 					if(w == b)
