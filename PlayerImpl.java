@@ -37,9 +37,6 @@ public class PlayerImpl extends Player {
 				visited(gs.getBoard());
 
 				if (color.toString().equals(Color.WHITE.toString())) {
-
-					System.out.println("highest alpha: " + highestAlpha);
-					System.out.println("depth max: " + depth);
 					highestAlphaCompare = MaxValue(gs, highestAlpha,
 							lowestBeta, depth);
 					if (highestAlphaCompare > highestAlpha) {
@@ -47,7 +44,6 @@ public class PlayerImpl extends Player {
 						bestSoFar = positions[j];
 					}
 				} else if (color.toString().equals(Color.BLACK.toString())) {
-					System.out.println("depth min: " + depth);
 					lowestBetaCompare = MinValue(gs, highestAlpha, lowestBeta,
 							depth);
 					if (lowestBetaCompare < lowestBeta) {
