@@ -3,6 +3,7 @@
 // Main Class File:  PlayerImpl.java
 // File:             PlayerImpl.java
 // Semester:         CS540 Section 2 (Fall 2012)
+// Program:			 Programming Assignment 5(Reversi AI)
 //
 // Author:           Kah Jing Lee(klee224@wisc.edu)
 // CS Login:         kah
@@ -24,12 +25,12 @@ public class PlayerImpl extends Player {
 	@Override
 	public void move(Color[][] board) {
 
-		double highestAlpha = Double.NEGATIVE_INFINITY;
-		double highestAlphaCompare = Double.NEGATIVE_INFINITY;
-		double lowestBeta = Double.POSITIVE_INFINITY;
-		double lowestBetaCompare = Double.POSITIVE_INFINITY;
-
 		for (int i = 0;; i++) {
+			double highestAlpha = Double.NEGATIVE_INFINITY;
+			double highestAlphaCompare = Double.NEGATIVE_INFINITY;
+			double lowestBeta = Double.POSITIVE_INFINITY;
+			double lowestBetaCompare = Double.POSITIVE_INFINITY;
+
 			int depth = i;
 			Position[] positions = getLegalMoves(board, color);
 			for (int j = 0; j < positions.length; j++) {
